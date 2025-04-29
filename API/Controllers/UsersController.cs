@@ -21,7 +21,7 @@ public class UsersController(IUserRepository userRepository, IMapper mapper, IPh
     }
 
     [HttpGet("{username}")]
-    public async Task<ActionResult<MemberDto>> GetUserAsync(string username)
+    public async Task<ActionResult<MemberDto>> GetUser(string username)
     {
         var user = await userRepository.GetMemberAsync(username);
 
@@ -34,7 +34,7 @@ public class UsersController(IUserRepository userRepository, IMapper mapper, IPh
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
+    public async Task<ActionResult> UpdateUserAsync(MemberUpdateDto memberUpdateDto)
     {
         AppUser? user = await userRepository.GetUserByUsernameAsync(User.GetUsername());
 
@@ -56,7 +56,7 @@ public class UsersController(IUserRepository userRepository, IMapper mapper, IPh
     }
 
     [HttpPost("add-photo")]
-    public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
+    public async Task<ActionResult<PhotoDto>> AddPhotoAsync(IFormFile file)
     {
         AppUser? user = await userRepository.GetUserByUsernameAsync(User.GetUsername());
 
@@ -82,7 +82,7 @@ public class UsersController(IUserRepository userRepository, IMapper mapper, IPh
 
         if (await userRepository.SaveAllAsync())
         {
-            return mapper.Map<PhotoDto>(photo);
+            return CreatedAtAction(nameof(GetUser), new { username = user.UserName }, mapper.Map<PhotoDto>(photo));
         }
 
         return BadRequest("Problem adding photo");
