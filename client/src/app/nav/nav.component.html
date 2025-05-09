@@ -20,6 +20,7 @@
     </ul>
     @if (accountService.currentUser()){
     <div class="dropdown" dropdown>
+      <img src="{{ accountService.currentUser()?.photoUrl || 'user.png' }}" alt="user main image" class="me-2">
       <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>
         Welcome {{ accountService.currentUser()?.username | titlecase }}
       </a>
