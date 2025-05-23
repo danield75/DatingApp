@@ -8,7 +8,7 @@ import { TextInputComponent } from "../_forms/text-input/text-input.component";
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, JsonPipe, NgIf, TextInputComponent],
+  imports: [ReactiveFormsModule, JsonPipe, TextInputComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
